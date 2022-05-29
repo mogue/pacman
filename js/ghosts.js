@@ -149,7 +149,17 @@ function drawGhost(ghost) {
 			eval('ctx.fillStyle = GHOST_AFFRAID_COLOR');
 		}
 	}
-	eval('drawHelperGhost(ctx, GHOST_' + ghost.toUpperCase() + '_POSITION_X, GHOST_' + ghost.toUpperCase() + '_POSITION_Y, GHOST_' + ghost.toUpperCase() + '_DIRECTION, GHOST_' + ghost.toUpperCase() + '_BODY_STATE, GHOST_' + ghost.toUpperCase() + '_STATE, GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE)');
+    if (ghost) {
+        eval('drawHelperGhost(ctx, \
+            GHOST_' + ghost.toUpperCase() + '_POSITION_X, \
+            GHOST_' + ghost.toUpperCase() + '_POSITION_Y, \
+            GHOST_' + ghost.toUpperCase() + '_DIRECTION, \
+            GHOST_' + ghost.toUpperCase() + '_BODY_STATE, \
+            GHOST_' + ghost.toUpperCase() + '_STATE, \
+            GHOST_' + ghost.toUpperCase() + '_AFFRAID_STATE, \
+            ghost)'
+        );
+    }
 	
 	ctx.closePath();
 	
@@ -473,7 +483,7 @@ function eraseGhost(ghost) {
 
 	var ctx = getGhostCanevasContext(ghost);
 	
-	eval('ctx.clearRect(GHOST_' + ghost.toUpperCase() + '_POSITION_X - 17, GHOST_' + ghost.toUpperCase() + '_POSITION_Y - 17, 34, 34)');
+	ctx.clearRect(0, 0, 550, 550);
 }
 function eraseGhosts() { 
 
@@ -594,62 +604,54 @@ function resumeGhosts() {
 	resumeGhost('clyde');
 }
 
-function drawHelperGhost(ctx, x, y, d, b, s, a) { 
-	
-	if (s != -1) { 
-		ctx.beginPath();
-		ctx.moveTo((x - 15), (y + 16));
-		ctx.lineTo((x - 15), (y + 16) - 18);
-		ctx.bezierCurveTo((x - 15), (y + 16) - 26, (x - 15) + 6, (y + 16) - 32, (x - 15) + 14, (y + 16) - 32);
-		ctx.bezierCurveTo((x - 15) + 22, (y + 16) - 32, (x - 15) + 28, (y + 16) - 26, (x - 15) + 28, (y + 16) - 18);
-		ctx.lineTo((x - 15) + 28, (y + 16));
-		if (b < 4) { 
-			ctx.lineTo((x - 15) + 23.333, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 18.666, (y + 16));
-			ctx.lineTo((x - 15) + 14, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 9.333, (y + 16));
-			ctx.lineTo((x - 15) + 4.666, (y + 16) - 5.333);
-		} else { 
-			ctx.lineTo((x - 15) + 24.333, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 20.666, (y + 16));
-			ctx.lineTo((x - 15) + 17.333, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 12.666, (y + 16));
-			ctx.lineTo((x - 15) + 9, (y + 16) - 5.333);
-			ctx.lineTo((x - 15) + 5.333, (y + 16));
-			ctx.lineTo((x - 15) + 2.666, (y + 16) - 5.333);
-		}
-		ctx.lineTo((x - 15), (y + 16) );
-		ctx.fill();
-	}
+// d = direction, b = body_state, s = state, a = affraid
+function drawHelperGhost(ctx, x, y, d, b, s, a, name) {
+	var img = document.getElementById("ghost_" + name + "_sprite");
+    if (s != 0) {
+        if (a == 1) {
+            img = document.getElementById("ghost_" + name + "G_sprite");
+        } else {
+            img = document.getElementById("ghost_" + name + "B_sprite");
+        }
+    }
 
 	var eyesX = 0;
 	var eyesY = 0;
 	
 	if (d === 4) { 
 		eyesY = -5;
+        ctx.setTransform(1, 0, 0, 1, x, y);
 	} else if (d === 1) { 
 		eyesX = +2;
+        ctx.setTransform(1, 0, 0, 1, x, y);
 	} else if (d === 2) { 
 		eyesY = 0;
 		eyesY = +5;
+        ctx.setTransform(-1, 0, 0, 1, x, y);
 	} else if (d === 3) { 
 		eyesX = -3;
+        ctx.setTransform(-1, 0, 0, 1, x, y);
 	}
 
-	if (s === 0 || s === -1) { 
+    if (s != -1) { 
+        ctx.drawImage(img, -16, -16, 32, 32);
+	}
+
+	if (s === 0) {}
+    else if (s === -1) { 
 		ctx.fillStyle = "white";
 		ctx.beginPath();
-		ctx.moveTo((x - 15) + 8 + eyesX, (y + 16) - 24 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 5 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 4 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 4 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 4 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 5 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 8 + eyesX, (y + 16) - 14 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 11 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 12 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 12 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 12 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 11 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 8 + eyesX, (y + 16) - 24 + eyesY);
+		ctx.moveTo(( - 15) + 8 + eyesX, (+ 16) - 24 + eyesY);
+		ctx.bezierCurveTo((- 15) + 5 + eyesX, (+ 16) - 24 + eyesY, (- 15) + 4 + eyesX, (+ 16) - 21 + eyesY, (- 15) + 4 + eyesX, (+ 16) - 19 + eyesY);
+		ctx.bezierCurveTo((- 15) + 4 + eyesX, (+ 16) - 17 + eyesY, (- 15) + 5 + eyesX, (+ 16) - 14 + eyesY, (- 15) + 8 + eyesX, (+ 16) - 14 + eyesY);
+		ctx.bezierCurveTo((- 15) + 11 + eyesX, (+ 16) - 14 + eyesY, (- 15) + 12 + eyesX, (+ 16) - 17 + eyesY, (- 15) + 12 + eyesX, (+ 16) - 19 + eyesY);
+		ctx.bezierCurveTo((- 15) + 12 + eyesX, (+ 16) - 21 + eyesY, (- 15) + 11 + eyesX, (+ 16) - 24 + eyesY, (- 15) + 8 + eyesX, (+ 16) - 24 + eyesY);
 		
-		ctx.moveTo((x - 15) + 20 + eyesX, (y + 16) - 24 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 17 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 16 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 16 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 16 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 17 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 20 + eyesX, (y + 16) - 14 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 23 + eyesX, (y + 16) - 14 + eyesY, (x - 15) + 24 + eyesX, (y + 16) - 17 + eyesY, (x - 15) + 24 + eyesX, (y + 16) - 19 + eyesY);
-		ctx.bezierCurveTo((x - 15) + 24 + eyesX, (y + 16) - 21 + eyesY, (x - 15) + 23 + eyesX, (y + 16) - 24 + eyesY, (x - 15) + 20 + eyesX, (y + 16) - 24 + eyesY);
+		ctx.moveTo((- 15) + 20 + eyesX, (+ 16) - 24 + eyesY);
+		ctx.bezierCurveTo((- 15) + 17 + eyesX, (+ 16) - 24 + eyesY, (- 15) + 16 + eyesX, (+ 16) - 21 + eyesY, (- 15) + 16 + eyesX, (+ 16) - 19 + eyesY);
+		ctx.bezierCurveTo((- 15) + 16 + eyesX, (+ 16) - 17 + eyesY, (- 15) + 17 + eyesX, (+ 16) - 14 + eyesY, (- 15) + 20 + eyesX, (+ 16) - 14 + eyesY);
+		ctx.bezierCurveTo((- 15) + 23 + eyesX, (+ 16) - 14 + eyesY, (- 15) + 24 + eyesX, (+ 16) - 17 + eyesY, (- 15) + 24 + eyesX, (+ 16) - 19 + eyesY);
+		ctx.bezierCurveTo((- 15) + 24 + eyesX, (+ 16) - 21 + eyesY, (- 15) + 23 + eyesX, (+ 16) - 24 + eyesY, (- 15) + 20 + eyesX, (+ 16) - 24 + eyesY);
 		ctx.fill();
 		
 		if (d === 4) { 
@@ -666,11 +668,11 @@ function drawHelperGhost(ctx, x, y, d, b, s, a) {
 		
 		ctx.fillStyle = "#0000fa";
 		ctx.beginPath();
-		ctx.arc((x - 15) + 18 + eyesX, (y + 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
+		ctx.arc((- 15) + 18 + eyesX, (+ 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
 		ctx.fill();
 
 		ctx.beginPath();
-		ctx.arc((x - 15) + 6 + eyesX, (y + 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
+		ctx.arc((- 15) + 6 + eyesX, (+ 16) - 18 + eyesY, 2, 0, Math.PI * 2, true);
 		ctx.fill();
 	} else { 
 		if (a === 1) { 
@@ -679,29 +681,32 @@ function drawHelperGhost(ctx, x, y, d, b, s, a) {
 			ctx.fillStyle = "#e5bed0";
 		}
 		ctx.beginPath();
-		ctx.arc((x - 15) + 18, (y + 13) - 17, 2, 0, Math.PI * 2, true);
+		ctx.arc((- 15) + 18, (+ 13) - 17, 2, 0, Math.PI * 2, true);
 		ctx.fill();
 
 		ctx.beginPath();
-		ctx.arc((x - 15) + 10, (y + 13) - 17, 2, 0, Math.PI * 2, true);
+		ctx.arc((- 15) + 10, (+ 13) - 17, 2, 0, Math.PI * 2, true);
 		ctx.fill();
-		
+		/* Mouth
 		if (a === 1) { 
 			ctx.strokeStyle = "#ee2933";
 		} else { 
 			ctx.strokeStyle = "#e5bed0";
 		}
+        
 		ctx.beginPath();
-		ctx.lineTo((x - 14.333) + 24, (y + 6));
+		ctx.lineTo((- 14.333) + 24, (+ 6));
 		
-		ctx.lineTo((x - 14.333) + 21, (y + 6) - 3);		
-		ctx.lineTo((x - 14.333) + 17, (y + 6));
+		ctx.lineTo((- 14.333) + 21, (+ 6) - 3);		
+		ctx.lineTo((- 14.333) + 17, (+ 6));
 		
-		ctx.lineTo((x - 14.333) + 14, (y + 6) - 3);
-		ctx.lineTo((x - 14.333) + 10, (y + 6));
+		ctx.lineTo((- 14.333) + 14, (+ 6) - 3);
+		ctx.lineTo((- 14.333) + 10, (+ 6));
 		
-		ctx.lineTo((x - 14.333) + 7, (y + 6) - 3);
-		ctx.lineTo((x - 14.333) + 3, (y + 6));
+		ctx.lineTo((- 14.333) + 7, (+ 6) - 3);
+		ctx.lineTo((- 14.333) + 3, (+ 6));
 		ctx.stroke();
+        */
 	}
+    ctx.setTransform(1,0,0,1,0,0);
 }

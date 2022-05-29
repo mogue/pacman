@@ -211,40 +211,40 @@ function drawPacman() {
 
 	var ctx = getPacmanCanevasContext();
 	
-	ctx.fillStyle = "#fff200";
-	ctx.beginPath();
-	
-	var startAngle = 0;
-	var endAngle = 2 * Math.PI;
-	var lineToX = PACMAN_POSITION_X;
-	var lineToY = PACMAN_POSITION_Y;
-	if (PACMAN_DIRECTION === 1) { 
-		startAngle = (0.35 - (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		endAngle = (1.65 + (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		lineToX -= 8;
-	} else if (PACMAN_DIRECTION === 2) { 
-		startAngle = (0.85 - (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		endAngle = (0.15 + (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		lineToY -= 8;
-	} else if (PACMAN_DIRECTION === 3) { 
-		startAngle = (1.35 - (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		endAngle = (0.65 + (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		lineToX += 8;
-	} else if (PACMAN_DIRECTION === 4) { 
-		startAngle = (1.85 - (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		endAngle = (1.15 + (PACMAN_MOUNTH_STATE * 0.05)) * Math.PI;
-		lineToY += 8;
-	}
-	ctx.arc(PACMAN_POSITION_X, PACMAN_POSITION_Y, PACMAN_SIZE, startAngle, endAngle, false);
-	ctx.lineTo(lineToX, lineToY);
-	ctx.fill();
-	ctx.closePath();
+    var scaleSize = PACMAN_SIZE * 2;
+
+    var img = document.getElementById("pacmanRightSprite");
+    if (PACMAN_DIRECTION === 1) {
+        img = document.getElementById("pacmanRightSprite");    //right
+        ctx.setTransform(1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
+        ctx.rotate( (PACMAN_MOUNTH_STATE*4+ 0) *Math.PI/180);
+    } else if (PACMAN_DIRECTION === 2) { 
+        img = document.getElementById("pacmanRightSprite");          //down
+        ctx.setTransform(1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
+        ctx.rotate( (PACMAN_MOUNTH_STATE*4+ 90) *Math.PI/180);
+    } else if (PACMAN_DIRECTION === 3) { 			      //left
+        img = document.getElementById("pacmanRightSprite");
+        ctx.setTransform(-1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
+        ctx.rotate( (PACMAN_MOUNTH_STATE*4+ 0) *Math.PI/180);
+    } else if (PACMAN_DIRECTION === 4) { 
+        img = document.getElementById("pacmanRightSprite");    //up
+        ctx.setTransform(-1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
+        ctx.rotate( (PACMAN_MOUNTH_STATE*4- 90) *Math.PI/180);
+    }
+    if (PACMAN_DEAD) {
+        ctx.rotate(14 * PACMAN_MOUNTH_STATE);
+        ctx.scale(PACMAN_MOUNTH_STATE*0.5,PACMAN_MOUNTH_STATE*0.5);
+    }
+    ctx.drawImage(img, -PACMAN_SIZE, -PACMAN_SIZE, scaleSize, scaleSize);
+    ctx.setTransform(1,0,0,1,0,0);
 }
 
 function erasePacman() { 
 
 	var ctx = getPacmanCanevasContext();
-	ctx.clearRect( (PACMAN_POSITION_X - 2) - PACMAN_SIZE, (PACMAN_POSITION_Y - 2) - PACMAN_SIZE, (PACMAN_SIZE * 2) + 5, (PACMAN_SIZE * 2) + 5);
+
+    ctx.clearRect( 0, 0, 550, 550 );
+//	ctx.clearRect( (PACMAN_POSITION_X - 2) - PACMAN_SIZE, (PACMAN_POSITION_Y - 2) - PACMAN_SIZE, (PACMAN_SIZE * 2) + 5, (PACMAN_SIZE * 2) + 5);
 }
 
 function killPacman() { 
@@ -252,6 +252,7 @@ function killPacman() {
 
 	LOCK = true;
 	PACMAN_DEAD = true;
+    PACMAN_MOUNTH_STATE = 0;
 	stopPacman();
 	stopGhosts();
 	pauseTimes();

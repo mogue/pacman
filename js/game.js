@@ -50,12 +50,14 @@ function initGame(newgame) {
 		
 		var ctx = null;
 		var canvas = document.getElementById('canvas-panel-title-pacman');
-		canvas.setAttribute('width', '38');
+		canvas.setAttribute('width', '250');
 		canvas.setAttribute('height', '32');
 		if (canvas.getContext) { 
 			ctx = canvas.getContext('2d');
 		}
-		
+        var img = document.getElementById("logoSprite");
+        ctx.drawImage(img, 0,0, 250,32);
+		/*
 		var x = 15;
 		var y = 16;
 		
@@ -74,6 +76,7 @@ function initGame(newgame) {
 		ctx.arc(x, y, 4, 0, 2 * Math.PI, false);
 		ctx.fill();
 		ctx.closePath();
+        */
 	}
 
 	initBoard();
@@ -267,16 +270,24 @@ function lifes(l) {
 		var ctx = canvas.getContext('2d');
 		
 		ctx.clearRect(0, 0, 120, 30);
-		ctx.fillStyle = "#fff200";
+//		ctx.fillStyle = "#fff200";
+        var img = document.getElementById("pacmanLeftSprite");
 		for (var i = 0, imax = LIFES; (i < imax && i < 4); i ++) { 
 			ctx.beginPath();
 			
 			var lineToX = 13;
 			var lineToY = 15;
 			
-			ctx.arc(lineToX + (i * 30), lineToY, 13, (1.35 - (3 * 0.05)) * Math.PI, (0.65 + (3 * 0.05)) * Math.PI, false);
-			ctx.lineTo(lineToX + (i * 30) + 4, lineToY);
-			ctx.fill();
+            ctx.drawImage(img, 
+                lineToX + (i * 30), 
+                0, 
+                30, 
+                30
+            ); 
+
+			// ctx.arc(lineToX + (i * 30), lineToY, 13, (1.35 - (3 * 0.05)) * Math.PI, (0.65 + (3 * 0.05)) * Math.PI, false);
+			// ctx.lineTo(lineToX + (i * 30) + 4, lineToY);
+			// ctx.fill();
 			ctx.closePath();
 		}
 	}

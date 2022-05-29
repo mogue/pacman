@@ -4,20 +4,10 @@
 
 	<head>
 
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121647007-2"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			
-			gtag('config', 'UA-121647007-2');
-		</script>
-	
-		<meta property="og:image" content="https://pacman-e281c.firebaseapp.com/img/preview.png">
-		<meta property="og:url" content="https://pacman-e281c.firebaseapp.com/">
+		<meta property="og:image" content="https://raw.githubusercontent.com/mogue/pacman/master/img/preview.png">
+		<meta property="og:url" content="https://github.com/mogue/pacman/">
 		<meta property="og:description" content="Pac-Man game written in HTML5 + CSS3 + jQuery with Canvas. This WebApp is a Responsive Web Design (RWD) website.">
-		<meta property="og:title" content="Lucio PANEPINTO - Pac-Man">
+		<meta property="og:title" content="CodeMiko - Pac-Man">
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
 		<meta name="description" content="Pac-Man game written in HTML5 + CSS3 + jQuery with Canvas. This WebApp is a Responsive Web Design (RWD) website." />
@@ -181,11 +171,32 @@
 			});
 		</script>
 	
-		<title>Lucio PANEPINTO - Pac-Man</title>
+		<title>CodeMiko - Pac-Man</title>
 	</head>
 		
 	<body>
-	
+        <div id="sprites" style="display:none;"">
+            <img id="logoSprite" src="img/logo-mikoman.png" />
+
+            <img id="pacmanRightSprite"     src="img/head-miko-right.png" />
+            <img id="pacmanLeftSprite"      src="img/head-miko-left.png" />
+
+            <img id="ghost_blinky_sprite"   src="img/ghost-blinky.png" />
+            <img id="ghost_pinky_sprite"    src="img/ghost-pinky.png" />
+            <img id="ghost_inky_sprite"     src="img/ghost-inky.png" />
+            <img id="ghost_clyde_sprite"    src="img/ghost-clyde.png" />
+
+            <img id="ghost_blinkyG_sprite"   src="img/ghost-blinky-gray.png" />
+            <img id="ghost_pinkyG_sprite"    src="img/ghost-pinky-gray.png" />
+            <img id="ghost_inkyG_sprite"     src="img/ghost-inky-gray.png" />
+            <img id="ghost_clydeG_sprite"    src="img/ghost-clyde-gray.png" />
+
+            <img id="ghost_blinkyB_sprite"   src="img/ghost-blinky-blue.png" />
+            <img id="ghost_pinkyB_sprite"    src="img/ghost-pinky-blue.png" />
+            <img id="ghost_inkyB_sprite"     src="img/ghost-inky-blue.png" />
+            <img id="ghost_clydeB_sprite"    src="img/ghost-clyde-blue.png" />
+        </div>
+
 		<div id="sound"></div>
 	
 		<div id="help">
@@ -203,26 +214,24 @@
 		</div>
 	
 		<div id="home">
-			<h1>pac-man</h1>
-			<h3>Lucio PANEPINTO<br><em>2015</em></h3>
+			<h1>codemiko</h1>
+<!--			<h3>Lucio PANEPINTO<br><em>2015</em></h3> -->
 			<canvas id="canvas-home-title-pacman"></canvas>
 			<div id="presentation">
-				<div id="presentation-titles">character &nbsp;/&nbsp; nickname</div>
-				<canvas id="canvas-presentation-blinky"></canvas><div id="presentation-character-blinky">- shadow</div><div id="presentation-name-blinky">"blinky"</div>
+				<div id="presentation-titles">bobs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp; nickname</div>
+				<canvas id="canvas-presentation-blinky"></canvas><div id="presentation-character-blinky">- mogue</div><div id="presentation-name-blinky">"blinky"</div>
 				<canvas id="canvas-presentation-pinky"></canvas><div id="presentation-character-pinky">- speedy</div><div id="presentation-name-pinky">"pinky"</div>
-				<canvas id="canvas-presentation-inky"></canvas><div id="presentation-character-inky">- bashful</div><div id="presentation-name-inky">"inky"</div>
+				<canvas id="canvas-presentation-inky"></canvas><div id="presentation-character-inky">- trvelsayo</div><div id="presentation-name-inky">"inky"</div>
 				<canvas id="canvas-presentation-clyde"></canvas><div id="presentation-character-clyde">- pokey</div><div id="presentation-name-clyde">"clyde"</div>
 			</div>
 			<canvas id="trailer"></canvas>
 			<div class="help-button">- help -</div>
 			<a class="sound" href="javascript:void(0);" data-sound="on"><img src="img/sound-on.png" alt="" border="0"></a>
-			<a class="github" target="_blank" href="https://github.com/luciopanepinto/pacman"><img src="img/github.png" alt="GitHub - Lucio PANEPINTO - Pac-Man"></a>
-			<a class="putchu" target="_top" href="http://www.putchu.be"><img src="http://www.putchu.be/img/intro/player.png" height="95px" alt="Putchu">www.putchu.be</a>
+			<a class="github" target="_blank" href="https://github.com/mogue/pacman"><img src="img/github.png" alt="GitHub - Pac-Man"></a>
 		</div>
 	
 		<div id="panel">
-			<h1>pac-man</h1>
-			<a class="putchu" target="_top" href="http://www.putchu.be"><img src="http://www.putchu.be/img/intro/player.png" height="65px" alt="Putchu">www.putchu.be</a>
+			<h1>codemiko</h1>
 			<canvas id="canvas-panel-title-pacman"></canvas>
 			<div id="score"><h2>1UP</h2><span>00</span></div>
 			<div id="highscore"><h2>High Score</h2><span>00</span></div>
