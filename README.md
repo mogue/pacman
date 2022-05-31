@@ -5,3 +5,4 @@ Pac-Man game written in HTML5 + CSS3 + jQuery with Canvas. This WebApp is a Resp
 
 from the dreams of Travelsayo.
 
+<a href="https://mogue.github.io/pacman/">Play</a>
