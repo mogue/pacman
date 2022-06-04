@@ -120,6 +120,16 @@
 				});
 				
 				$("body").keydown(function(e) { 
+
+                    if (e.keyCode == 54) {
+                        PACMAN_EVIL_WADDLES = !PACMAN_EVIL_WADDLES;
+                        if (!HOME && !PACMAN_DEAD) {
+                            lifes();
+                            erasePacman();
+                            drawPacman();
+                        }
+                        return false;
+                    }
 				
 					if (HOME) { 
 						
@@ -178,23 +188,24 @@
         <div id="sprites" style="display:none;"">
             <img id="logoSprite" src="img/logo-mikoman.png" />
 
-            <img id="pacmanRightSprite"     src="img/head-miko-right.png" />
-            <img id="pacmanLeftSprite"      src="img/head-miko-left.png" />
+            <img id="pacmanRightSprite"         src="img/head-miko-right.png" />
+            <img id="pacmanWaddlesSprite"       src="img/head-waddles.png" />
+            <img id="pacmanWaddlesOpenSprite"   src="img/head-waddles-open.png" />
 
-            <img id="ghost_blinky_sprite"   src="img/ghost-blinky.png" />
-            <img id="ghost_pinky_sprite"    src="img/ghost-pinky.png" />
-            <img id="ghost_inky_sprite"     src="img/ghost-inky.png" />
-            <img id="ghost_clyde_sprite"    src="img/ghost-clyde.png" />
+            <img id="ghost_blinky_sprite"       src="img/ghost-blinky.png" />
+            <img id="ghost_pinky_sprite"        src="img/ghost-pinky.png" />
+            <img id="ghost_inky_sprite"         src="img/ghost-inky.png" />
+            <img id="ghost_clyde_sprite"        src="img/ghost-clyde.png" />
 
-            <img id="ghost_blinkyG_sprite"   src="img/ghost-blinky-gray.png" />
-            <img id="ghost_pinkyG_sprite"    src="img/ghost-pinky-gray.png" />
-            <img id="ghost_inkyG_sprite"     src="img/ghost-inky-gray.png" />
-            <img id="ghost_clydeG_sprite"    src="img/ghost-clyde-gray.png" />
+            <img id="ghost_blinkyG_sprite"      src="img/ghost-blinky-gray.png" />
+            <img id="ghost_pinkyG_sprite"       src="img/ghost-pinky-gray.png" />
+            <img id="ghost_inkyG_sprite"        src="img/ghost-inky-gray.png" />
+            <img id="ghost_clydeG_sprite"       src="img/ghost-clyde-gray.png" />
 
-            <img id="ghost_blinkyB_sprite"   src="img/ghost-blinky-blue.png" />
-            <img id="ghost_pinkyB_sprite"    src="img/ghost-pinky-blue.png" />
-            <img id="ghost_inkyB_sprite"     src="img/ghost-inky-blue.png" />
-            <img id="ghost_clydeB_sprite"    src="img/ghost-clyde-blue.png" />
+            <img id="ghost_blinkyB_sprite"      src="img/ghost-blinky-blue.png" />
+            <img id="ghost_pinkyB_sprite"       src="img/ghost-pinky-blue.png" />
+            <img id="ghost_inkyB_sprite"        src="img/ghost-inky-blue.png" />
+            <img id="ghost_clydeB_sprite"       src="img/ghost-clyde-blue.png" />
         </div>
 
 		<div id="sound"></div>
@@ -222,7 +233,7 @@
 				<canvas id="canvas-presentation-blinky"></canvas><div id="presentation-character-blinky">- mogue</div><div id="presentation-name-blinky">"blinky"</div>
 				<canvas id="canvas-presentation-pinky"></canvas><div id="presentation-character-pinky">- speedy</div><div id="presentation-name-pinky">"pinky"</div>
 				<canvas id="canvas-presentation-inky"></canvas><div id="presentation-character-inky">- trvelsayo</div><div id="presentation-name-inky">"inky"</div>
-				<canvas id="canvas-presentation-clyde"></canvas><div id="presentation-character-clyde">- pokey</div><div id="presentation-name-clyde">"clyde"</div>
+				<canvas id="canvas-presentation-clyde"></canvas><div id="presentation-character-clyde">- suprvilain</div><div id="presentation-name-clyde">"clyde"</div>
 			</div>
 			<canvas id="trailer"></canvas>
 			<div class="help-button">- help -</div>

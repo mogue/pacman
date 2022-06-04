@@ -271,19 +271,24 @@ function lifes(l) {
 		
 		ctx.clearRect(0, 0, 120, 30);
 //		ctx.fillStyle = "#fff200";
-        var img = document.getElementById("pacmanLeftSprite");
+        var img = document.getElementById("pacmanRightSprite");
+        if (PACMAN_EVIL_WADDLES) {
+            img = document.getElementById("pacmanWaddlesSprite");
+        }
 		for (var i = 0, imax = LIFES; (i < imax && i < 4); i ++) { 
 			ctx.beginPath();
 			
 			var lineToX = 13;
 			var lineToY = 15;
 			
+            ctx.setTransform(-1, 0, 0, 1, 45, 0);
             ctx.drawImage(img, 
-                lineToX + (i * 30), 
+                lineToX + (3-i * 30), 
                 0, 
                 30, 
                 30
             ); 
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
 
 			// ctx.arc(lineToX + (i * 30), lineToY, 13, (1.35 - (3 * 0.05)) * Math.PI, (0.65 + (3 * 0.05)) * Math.PI, false);
 			// ctx.lineTo(lineToX + (i * 30) + 4, lineToY);

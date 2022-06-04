@@ -348,24 +348,28 @@ function drawPacmanTrailer() {
 	var ctx = getPacmanTrailerCanevasContext();
 
     var scaleSize = PACMAN_TRAILER_SIZE * 2;
+    var r = PACMAN_TRAILER_MOUNTH_STATE*4;
 
     var img = document.getElementById("pacmanRightSprite");
-    if (PACMAN_TRAILER_DIRECTION  === 1) {
-        img = document.getElementById("pacmanRightSprite");    //right
+    if (PACMAN_EVIL_WADDLES) {
+        img = document.getElementById("pacmanWaddlesSprite");
+        r = 0;
+        if (PACMAN_MOUNTH_STATE > 1) {
+            img = document.getElementById("pacmanWaddlesOpenSprite");
+        }
+    }
+    if (PACMAN_TRAILER_DIRECTION  === 1) {    //right
         ctx.setTransform(1, 0, 0, 1, PACMAN_TRAILER_POSITION_X, PACMAN_TRAILER_POSITION_Y);
-        ctx.rotate( (PACMAN_TRAILER_MOUNTH_STATE *4+ 0) *Math.PI/180);
-    } else if (PACMAN_TRAILER_DIRECTION  === 2) { 
-        img = document.getElementById("pacmanRightSprite");          //down
+        ctx.rotate( (r + 0) *Math.PI/180);
+    } else if (PACMAN_TRAILER_DIRECTION  === 2) {           //down
         ctx.setTransform(1, 0, 0, 1, PACMAN_TRAILER_POSITION_X, PACMAN_TRAILER_POSITION_Y);
-        ctx.rotate( (PACMAN_TRAILER_MOUNTH_STATE *4+ 90) *Math.PI/180);
+        ctx.rotate( (r + 90) *Math.PI/180);
     } else if (PACMAN_TRAILER_DIRECTION  === 3) { 			      //left
-        img = document.getElementById("pacmanRightSprite");
         ctx.setTransform(-1, 0, 0, 1, PACMAN_TRAILER_POSITION_X, PACMAN_TRAILER_POSITION_Y);
-        ctx.rotate( (PACMAN_TRAILER_MOUNTH_STATE *4+ 0) *Math.PI/180);
-    } else if (PACMAN_TRAILER_DIRECTION  === 4) { 
-        img = document.getElementById("pacmanRightSprite");    //up
+        ctx.rotate( (r + 0) *Math.PI/180);
+    } else if (PACMAN_TRAILER_DIRECTION  === 4) {     //up
         ctx.setTransform(-1, 0, 0, 1, PACMAN_TRAILER_POSITION_X, PACMAN_TRAILER_POSITION_Y);
-        ctx.rotate( (PACMAN_TRAILER_MOUNTH_STATE *4- 90) *Math.PI/180);
+        ctx.rotate( (r - 90) *Math.PI/180);
     }
     ctx.drawImage(img, -PACMAN_TRAILER_SIZE, -PACMAN_TRAILER_SIZE, scaleSize, scaleSize);
     ctx.setTransform(1,0,0,1,0,0);

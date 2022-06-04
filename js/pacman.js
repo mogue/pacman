@@ -19,6 +19,7 @@ var PACMAN_KILLING_TIMER = -1;
 var PACMAN_KILLING_SPEED = 70;
 var PACMAN_RETRY_SPEED = 2100;
 var PACMAN_DEAD = false;
+var PACMAN_EVIL_WADDLES = false;
 
 function initPacman() { 
 	var canvas = document.getElementById('canvas-pacman');
@@ -212,24 +213,28 @@ function drawPacman() {
 	var ctx = getPacmanCanevasContext();
 	
     var scaleSize = PACMAN_SIZE * 2;
+    var r = PACMAN_MOUNTH_STATE*4;
 
     var img = document.getElementById("pacmanRightSprite");
-    if (PACMAN_DIRECTION === 1) {
-        img = document.getElementById("pacmanRightSprite");    //right
+    if (PACMAN_EVIL_WADDLES) {
+        img = document.getElementById("pacmanWaddlesSprite");
+        r = 0;
+        if (PACMAN_MOUNTH_STATE > 1) {
+            img = document.getElementById("pacmanWaddlesOpenSprite");
+        }
+    }
+    if (PACMAN_DIRECTION === 1) {   //right
         ctx.setTransform(1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
-        ctx.rotate( (PACMAN_MOUNTH_STATE*4+ 0) *Math.PI/180);
-    } else if (PACMAN_DIRECTION === 2) { 
-        img = document.getElementById("pacmanRightSprite");          //down
+        ctx.rotate( (r + 0) *Math.PI/180);
+    } else if (PACMAN_DIRECTION === 2) {      //down
         ctx.setTransform(1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
-        ctx.rotate( (PACMAN_MOUNTH_STATE*4+ 90) *Math.PI/180);
+        ctx.rotate( (r + 90) *Math.PI/180);
     } else if (PACMAN_DIRECTION === 3) { 			      //left
-        img = document.getElementById("pacmanRightSprite");
         ctx.setTransform(-1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
-        ctx.rotate( (PACMAN_MOUNTH_STATE*4+ 0) *Math.PI/180);
-    } else if (PACMAN_DIRECTION === 4) { 
-        img = document.getElementById("pacmanRightSprite");    //up
+        ctx.rotate( (r + 0) *Math.PI/180);
+    } else if (PACMAN_DIRECTION === 4) { //up
         ctx.setTransform(-1, 0, 0, 1, PACMAN_POSITION_X, PACMAN_POSITION_Y);
-        ctx.rotate( (PACMAN_MOUNTH_STATE*4- 90) *Math.PI/180);
+        ctx.rotate( (r - 90) *Math.PI/180);
     }
     if (PACMAN_DEAD) {
         ctx.rotate(14 * PACMAN_MOUNTH_STATE);
